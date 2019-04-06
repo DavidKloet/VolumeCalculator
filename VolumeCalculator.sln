@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeCalculator", "VolumeCalculator\VolumeCalculator.csproj", "{B44681A5-5086-4CFC-B783-C4719C81BEAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00BA549C-8BF2-46BD-B0F8-84FBF3F1A835}
+	EndGlobalSection
+EndGlobal
