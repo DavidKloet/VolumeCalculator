@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeCalculator", "VolumeCalculator\VolumeCalculator.csproj", "{B44681A5-5086-4CFC-B783-C4719C81BEAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E839029E-7EC6-425E-85C5-B38921EF6F19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{390E8EB7-B8F7-422E-A808-31035FAD80BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B44681A5-5086-4CFC-B783-C4719C81BEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E839029E-7EC6-425E-85C5-B38921EF6F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E839029E-7EC6-425E-85C5-B38921EF6F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E839029E-7EC6-425E-85C5-B38921EF6F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E839029E-7EC6-425E-85C5-B38921EF6F19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{390E8EB7-B8F7-422E-A808-31035FAD80BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{390E8EB7-B8F7-422E-A808-31035FAD80BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{390E8EB7-B8F7-422E-A808-31035FAD80BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{390E8EB7-B8F7-422E-A808-31035FAD80BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
