@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Domain.Data;
+using System.Threading.Tasks;
 
-namespace Domain.Data
+namespace Services.Data
 {
     public interface IReader
     {

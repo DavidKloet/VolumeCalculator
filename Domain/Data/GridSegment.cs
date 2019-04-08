@@ -15,7 +15,7 @@ namespace Domain.Data
         public GridSegment(DataPoint topLeft, DataPoint topRight, DataPoint bottomLeft, DataPoint bottomRight)
         {
             if (topLeft.X - topRight.X != bottomLeft.X - bottomRight.X ||
-               topLeft.Y - bottomLeft.Y != topRight.Y - bottomRight.Y) throw new ArgumentException("Segment must be a rectagle");
+               topLeft.Y - bottomLeft.Y != topRight.Y - bottomRight.Y) throw new ArgumentException("Segment must be a rectangle");
 
             TopLeft = topLeft;
             TopRight = topRight;

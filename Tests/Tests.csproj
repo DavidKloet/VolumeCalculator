@@ -50,15 +50,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecimalValidatorShould.cs" />
+    <Compile Include="CsvFileReaderShould.cs" />
+    <Compile Include="GridShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleVolumeCalculatorShould.cs" />
+    <Compile Include="StringExtensionsShould.cs" />
+    <Compile Include="UnitConverterShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestData\BaseHorizonInFeet.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TopHorizonInFeet - invalid column.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TopHorizonInFeet - invalid value.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TopHorizonInFeet.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{E839029E-7EC6-425E-85C5-B38921EF6F19}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{FAD34645-0049-4FF9-AFB5-BDDF5093058A}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VolumeCalculator\VolumeCalculator.csproj">
+      <Project>{B44681A5-5086-4CFC-B783-C4719C81BEAF}</Project>
+      <Name>VolumeCalculator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

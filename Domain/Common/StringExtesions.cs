@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.IO;
 
 namespace Domain.Common
 {
@@ -8,9 +9,18 @@ namespace Domain.Common
         {
             if (string.IsNullOrWhiteSpace(path)) return false;
 
-            if (Regex.IsMatch(path, @"^(\S.*)(\.[A-Za-z]+)$")) return false;
+            if (path.IndexOfAny(Path.GetInvalidPathChars()) != -1) return false;
 
-            return path.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) == -1;
+            try
+            {
+                var info = new FileInfo(path);
+
+                return info.Exists;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

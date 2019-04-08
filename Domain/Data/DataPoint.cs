@@ -2,17 +2,17 @@
 {
     public struct DataPoint
     {
-        public decimal X { get; }
+        public int X { get; }
 
-        public decimal Y { get; }
+        public int Y { get; }
 
         public decimal Depth { get; }
 
-        public DataPoint(decimal x, decimal y, decimal depth)
+        public DataPoint(int x, int y, NonNegativeDecimal depth)
         {
             X = x;
             Y = y;
-            Depth = depth;
+            Depth = depth.Value;
         }
     }
 }

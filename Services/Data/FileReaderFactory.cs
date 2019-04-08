@@ -1,8 +1,9 @@
 ﻿using Domain.Common;
+using Domain.Data;
 using System;
 using System.IO;
 
-namespace Domain.Data
+namespace Services.Data
 {
     public class FileReaderFactory
     {

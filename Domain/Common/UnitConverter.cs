@@ -2,16 +2,16 @@
 {
     public static class UnitConverter
     {
-        private const decimal FeetToMeterConverion = 0.3048m;
+        private const decimal FeetToMeterConversion = 0.3048m;
 
         public static decimal FeetToMeter(decimal feet)
         {
-            return feet / FeetToMeterConverion;
+            return feet * FeetToMeterConversion;
         }
 
         public static decimal MeterToFeet(decimal meter)
         {
-            return meter * FeetToMeterConverion;
+            return meter / FeetToMeterConversion;
         }
     }
 }

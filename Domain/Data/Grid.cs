@@ -7,30 +7,37 @@ namespace Domain.Data
 {
     public sealed class Grid : IEnumerable<GridSegment>
     {
-        private readonly List<IEnumerable<DataPoint>> _data;
+        private readonly List<DataPoint[]> _data;
 
-        public Grid(IEnumerable<IEnumerable<DataPoint>> data)
+        public Grid(IEnumerable<DataPoint[]> data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
             _data = data.ToList();
 
-            if (_data.Any()) throw new ArgumentException("Value must contains at least one row", nameof(data));
-            if (_data.First().Any()) throw new ArgumentException("Value must contains at least one column", nameof(data));
+            if (_data.Count == 0) throw new ArgumentException("Value must contains at least one row", nameof(data));
+            if (_data[0].Length == 0) throw new ArgumentException("Value must contains at least one column", nameof(data));
+
+            Rows = _data.Count;
+            Columns = _data[0].Length;
         }
+
+        public int Rows { get; }
+
+        public int Columns { get; }
 
         public IEnumerator<GridSegment> GetEnumerator()
         {
-            for (var rowIndex = 0; rowIndex < _data.Count - 2; rowIndex++)
+            for (var rowIndex = 0; rowIndex < _data.Count - 1; rowIndex++)
             {
-                var cellCount = _data[rowIndex].Count() - 2;
+                var cellCount = _data[rowIndex].Length - 1;
 
                 for (var cellIndex = 0; cellIndex < cellCount; cellIndex++)
                 {
-                    yield return new GridSegment(_data[rowIndex].ElementAt(cellIndex),
-                        _data[rowIndex].ElementAt(cellIndex + 1),
-                        _data[rowIndex + 1].ElementAt(cellIndex),
-                        _data[rowIndex + 1].ElementAt(cellIndex + 1));
+                    yield return new GridSegment(_data[rowIndex][cellIndex],
+                        _data[rowIndex][cellIndex + 1],
+                        _data[rowIndex + 1][cellIndex],
+                        _data[rowIndex + 1][cellIndex + 1]);
                 }
             }
         }

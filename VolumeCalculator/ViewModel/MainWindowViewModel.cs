@@ -8,6 +8,8 @@ namespace VolumeCalculator.ViewModel
     {
         private string _topHorizonFileName;
         private string _baseHorizonFileName;
+        private decimal _gridWidth;
+        private decimal _gridHeight;
         private decimal _fluidContact;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,6 +39,35 @@ namespace VolumeCalculator.ViewModel
                 }
             }
         }
+
+        public decimal GridWidth
+        {
+            get => _gridWidth;
+            set
+            {
+                if (_gridWidth != value)
+                {
+                    _gridWidth = value;
+                    NotifyPropertyChanged();
+                }
+
+            }
+        }
+
+        public decimal GridHeight
+        {
+            get => _gridHeight;
+            set
+            {
+                if (_gridHeight != value)
+                {
+                    _gridHeight = value;
+                    NotifyPropertyChanged();
+                }
+
+            }
+        }
+
 
         public decimal FluidContact
         {

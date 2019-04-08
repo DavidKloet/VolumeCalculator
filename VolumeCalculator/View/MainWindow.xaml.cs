@@ -1,6 +1,7 @@
-﻿using Domain.Common;
-using Domain.Data;
+﻿using Domain.Calculator;
+using Domain.Common;
 using Microsoft.Win32;
+using Services.Data;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ namespace VolumeCalculator.View
     public partial class MainWindow : Window
     {
         private readonly FileReaderFactory _readerFactory;
+        private readonly MainWindowViewModel _model = new MainWindowViewModel();
 
         public MainWindow(FileReaderFactory readerFactory)
         {
@@ -19,9 +21,11 @@ namespace VolumeCalculator.View
 
             InitializeComponent();
 
-            DataContext = new MainWindowViewModel();
+            DataContext = _model;
 
-            DataObject.AddPastingHandler(FluidContact, FluidContact_OnPaste);
+            DataObject.AddPastingHandler(GridWidth, NumericOnly_OnPaste);
+            DataObject.AddPastingHandler(GridHeight, NumericOnly_OnPaste);
+            DataObject.AddPastingHandler(FluidContact, NumericOnly_OnPaste);
         }
 
         private void TopHorizonFileNameBrowse_Click(object sender, RoutedEventArgs e)
@@ -66,12 +70,12 @@ namespace VolumeCalculator.View
 
         }
 
-        private void FluidContact_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void NumericOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = string.IsNullOrEmpty(e.Text) || !DecimalValidator.IsValid(e.Text);
         }
 
-        private void FluidContact_OnPaste(object sender, DataObjectPastingEventArgs e)
+        private void NumericOnly_OnPaste(object sender, DataObjectPastingEventArgs e)
         {
             var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
 
@@ -81,19 +85,28 @@ namespace VolumeCalculator.View
             }
         }
 
-        private void FluidContact_OnPreviewKeyUp(object sender, KeyEventArgs e)
+        private void NumericOnly_OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (FluidContact.Text.Length == 0)
+            var control = (TextBox)sender;
+
+            if (control.Text.Length == 0)
             {
-                FluidContact.Text = "0";
+                control.Text = "0";
             }
         }
 
         private async void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            var topGrid = await _readerFactory.GetFileReader(TopHorizonFileName.Text).ReadAsync();
-            var baseGrid = await _readerFactory.GetFileReader(BaseHorizonFileName.Text).ReadAsync();
+            var topGrid = await _readerFactory.GetFileReader(_model.BaseHorizonFileName).ReadAsync();
+            var baseGrid = await _readerFactory.GetFileReader(_model.TopHorizonFileName).ReadAsync();
 
+            var calculator = new SimpleVolumeCalculator(baseGrid, topGrid, _model.GridWidth,
+                _model.GridHeight, _model.FluidContact);
+
+            if (calculator.IsValid())
+            {
+
+            }
         }
     }
 }
