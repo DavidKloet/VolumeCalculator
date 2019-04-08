@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using VolumeCalculator.Helpers;
 using VolumeCalculator.ViewModel;
 
 namespace VolumeCalculator.View
@@ -97,16 +98,13 @@ namespace VolumeCalculator.View
 
         private async void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            var topGrid = await _readerFactory.GetFileReader(_model.BaseHorizonFileName).ReadAsync();
-            var baseGrid = await _readerFactory.GetFileReader(_model.TopHorizonFileName).ReadAsync();
+            var topGridReader = _readerFactory.GetFileReader(_model.BaseHorizonFileName);
+            var baseGridReader = _readerFactory.GetFileReader(_model.TopHorizonFileName);
 
-            var calculator = new SimpleVolumeCalculator(baseGrid, topGrid, _model.GridWidth,
-                _model.GridHeight, _model.FluidContact);
+            var calculator = VolumeCalculatorFactory.GetCalculator();
+            
 
-            if (calculator.IsValid())
-            {
 
-            }
         }
     }
 }

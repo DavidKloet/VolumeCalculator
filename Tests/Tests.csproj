@@ -55,7 +55,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleVolumeCalculatorShould.cs" />
     <Compile Include="StringExtensionsShould.cs" />
-    <Compile Include="UnitConverterShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Data\CsvFileReader.cs" />
     <Compile Include="Data\FileReaderFactory.cs" />
-    <Compile Include="Data\IReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

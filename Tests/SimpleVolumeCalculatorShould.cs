@@ -7,22 +7,37 @@ using System.Collections.Generic;
 namespace Tests
 {
     [TestClass]
-    public class SimpleVolumeCalculatorShould
+    public class SimpleCalculationStrategyShould
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void SimpleVolumeCalculator_Ctor_ThrowsWithInvalidGrid1()
+        public void SimpleCalculationStrategy_GetVolume_ThrowsWithInvalidGrid1()
         {
             var grid = new Grid(new List<DataPoint[]> { new[] { new DataPoint() } });
-            var calculator = new SimpleVolumeCalculator(null, grid, 1, 1, 1);
+            var d = new NonNegativeDecimal(1);
+            var calculator = new SimpleCalculationStrategy().GetVolume(null, grid, d, d, d);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void SimpleVolumeCalculator_Ctor_ThrowsWithInvalidGrid2()
+        public void SimpleCalculationStrategy_GetVolume_ThrowsWithInvalidGrid2()
         {
             var grid = new Grid(new List<DataPoint[]> { new[] { new DataPoint() } });
-            var calculator = new SimpleVolumeCalculator(grid, null, 1, 1, 1);
+            var d = new NonNegativeDecimal(1);
+            var calculator = new SimpleCalculationStrategy().GetVolume(grid, null, d, d, d);
+        }
+
+        [TestMethod]
+        public void SimpleCalculationStrategy_GetVolume_ReturnsValidOutput()
+        {
+            var d0 = new NonNegativeDecimal();
+            var d1 = new NonNegativeDecimal(1);
+            var baseGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d0), new DataPoint(2, 1, d0) }, new[] { new DataPoint(1, 2, d0), new DataPoint(2, 2, d0) } });
+            var topGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d1), new DataPoint(2, 1, d1) }, new[] { new DataPoint(1, 2, d1), new DataPoint(2, 2, d1) } });
+
+            var volume = new SimpleCalculationStrategy().GetVolume(baseGrid, topGrid, d1, d1, d0);
+
+            Assert.AreEqual(1, volume);
         }
     }
 }

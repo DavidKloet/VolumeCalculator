@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Domain.UnitConverter;
 using VolumeCalculator.Annotations;
+using VolumeCalculator.Helpers;
 
 namespace VolumeCalculator.ViewModel
 {
@@ -11,6 +13,7 @@ namespace VolumeCalculator.ViewModel
         private decimal _gridWidth;
         private decimal _gridHeight;
         private decimal _fluidContact;
+        private Unit _unit = Unit.Meter;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -50,7 +53,6 @@ namespace VolumeCalculator.ViewModel
                     _gridWidth = value;
                     NotifyPropertyChanged();
                 }
-
             }
         }
 
@@ -64,10 +66,8 @@ namespace VolumeCalculator.ViewModel
                     _gridHeight = value;
                     NotifyPropertyChanged();
                 }
-
             }
         }
-
 
         public decimal FluidContact
         {
@@ -79,7 +79,19 @@ namespace VolumeCalculator.ViewModel
                     _fluidContact = value;
                     NotifyPropertyChanged();
                 }
+            }
+        }
 
+        public Unit Unit
+        {
+            get => _unit;
+            set
+            {
+                if (_unit != value)
+                {
+                    _unit = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 

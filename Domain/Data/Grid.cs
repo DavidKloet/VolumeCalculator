@@ -15,9 +15,6 @@ namespace Domain.Data
 
             _data = data.ToList();
 
-            if (_data.Count == 0) throw new ArgumentException("Value must contains at least one row", nameof(data));
-            if (_data[0].Length == 0) throw new ArgumentException("Value must contains at least one column", nameof(data));
-
             Rows = _data.Count;
             Columns = _data[0].Length;
         }

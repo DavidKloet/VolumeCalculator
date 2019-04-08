@@ -1,63 +1,58 @@
-﻿using Domain.Data;
+﻿using Domain.Common;
+using Domain.Common.Exceptions;
+using Domain.Data;
+using Services.Data;
 using System;
+using System.Threading.Tasks;
+using Domain.UnitConverter;
 
 namespace Domain.Calculator
 {
-    public sealed class SimpleVolumeCalculator
+    public sealed class VolumeCalculator
     {
-        private readonly Grid _baseHorizon;
-        private readonly Grid _topHorizon;
-        private readonly decimal _width;
-        private readonly decimal _height;
-        private readonly decimal _fluidContact;
+        private readonly ICalculationStrategy _calculationStrategy;
 
-        public SimpleVolumeCalculator(Grid baseHorizon, Grid topHorizon, decimal width, decimal height, decimal fluidContact)
+        public VolumeCalculator(ICalculationStrategy calculationStrategy)
         {
-            _baseHorizon = baseHorizon ?? throw new ArgumentNullException(nameof(baseHorizon));
-            _topHorizon = topHorizon ?? throw new ArgumentNullException(nameof(topHorizon));
-            _width = width;
-            _height = height;
-            _fluidContact = fluidContact;
+            _calculationStrategy = calculationStrategy ?? throw new ArgumentNullException(nameof(calculationStrategy));
         }
 
-        public bool IsValid()
+        public async Task<decimal?> CalculateAsync(IReader baseReader, IReader topReader, NonNegativeDecimal gridWidth, NonNegativeDecimal gridHeight, NonNegativeDecimal fluidContact, IUnitConverter unitConverter, ILogger logger)
         {
-            return _baseHorizon.Rows == _topHorizon.Rows &&
-                   _baseHorizon.Columns == _topHorizon.Columns;
-        }
+            if (baseReader == null) throw new ArgumentNullException(nameof(baseReader));
+            if (topReader == null) throw new ArgumentNullException(nameof(topReader));
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
 
-        public decimal GetVolume()
-        {
-            var volume = 0.0m;
-            var segmentArea = (_width / _baseHorizon.Columns) * (_height / _baseHorizon.Rows);
-
-            using (var baseIterator = _baseHorizon.GetEnumerator())
-            using (var topIterator = _topHorizon.GetEnumerator())
+            try
             {
-                while (baseIterator.MoveNext() && topIterator.MoveNext())
+                logger.Info("Reading base horizon measurements...");
+
+                var baseHorizon = await baseReader.ReadAsync();
+
+                logger.Info($"Found {baseHorizon.Columns * baseHorizon.Rows} values");
+
+                logger.Info("Reading top horizon measurements...");
+
+                var topHorizon = await topReader.ReadAsync();
+
+                logger.Info($"Found {baseHorizon.Columns * baseHorizon.Rows} values");
+
+                if (baseHorizon.Rows != topHorizon.Rows || baseHorizon.Columns != topHorizon.Columns)
                 {
-                    var baseDepth = GetAverageDepth(baseIterator.Current);
-                    var topDepth = GetAverageDepth(topIterator.Current);
-
-                    if (topDepth >= _fluidContact) continue;
-
-                    if (baseDepth > _fluidContact) baseDepth = _fluidContact;
-
-                    var deltaDepth = topDepth - baseDepth;
-
-                    volume += segmentArea * deltaDepth;
+                    logger.Error("Invalid input: grids must have the same dimensions!");
+                    return null;
                 }
+
+                logger.Info("Calculating volume...");
+
+                return _calculationStrategy.GetVolume(baseHorizon, topHorizon, gridWidth, gridHeight, fluidContact);
+            }
+            catch (ReaderException e)
+            {
+                logger.Error($"Error while reading! {e.Message}");
             }
 
-            return volume;
-        }
-
-        private static decimal GetAverageDepth(GridSegment segment)
-        {
-            return (segment.TopLeft.Depth +
-                    segment.TopRight.Depth +
-                    segment.BottomLeft.Depth +
-                    segment.BottomRight.Depth) / 4;
+            return null;
         }
     }
 }
