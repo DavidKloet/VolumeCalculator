@@ -60,6 +60,7 @@
             <TextBlock x:Name="Results" Padding="5" TextWrapping="Wrap" />
         </ScrollViewer>
 
+        <TextBlock Text="© David Kloet 2019" Grid.Row="7" Grid.Column="0" VerticalAlignment="Bottom" Foreground="Gray" Margin="5,0,0,0"></TextBlock>
         <Button Content="Calculate" x:Name="Calculate" IsEnabled="False" Grid.Row="7" Grid.Column="1" Width="120" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Calculate_Click"/>
 
     </Grid>
