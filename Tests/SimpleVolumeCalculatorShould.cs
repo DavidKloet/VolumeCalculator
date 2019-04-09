@@ -32,10 +32,24 @@ namespace Tests
         {
             var d0 = new NonNegativeDecimal();
             var d1 = new NonNegativeDecimal(1);
-            var baseGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d0), new DataPoint(2, 1, d0) }, new[] { new DataPoint(1, 2, d0), new DataPoint(2, 2, d0) } });
-            var topGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d1), new DataPoint(2, 1, d1) }, new[] { new DataPoint(1, 2, d1), new DataPoint(2, 2, d1) } });
+            var baseGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d1), new DataPoint(2, 1, d1) }, new[] { new DataPoint(1, 2, d1), new DataPoint(2, 2, d1) } });
+            var topGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d0), new DataPoint(2, 1, d0) }, new[] { new DataPoint(1, 2, d0), new DataPoint(2, 2, d0) } });
 
-            var volume = new SimpleCalculationStrategy().GetVolume(baseGrid, topGrid, d1, d1, d0);
+            var volume = new SimpleCalculationStrategy().GetVolume(baseGrid, topGrid, d1, d1, d1);
+
+            Assert.AreEqual(1, volume);
+        }
+
+        [TestMethod]
+        public void SimpleCalculationStrategy_GetVolume_TakesFluidContactIntoAccount()
+        {
+            var d0 = new NonNegativeDecimal();
+            var d1 = new NonNegativeDecimal(1);
+            var d2 = new NonNegativeDecimal(2);
+            var baseGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d2), new DataPoint(2, 1, d2) }, new[] { new DataPoint(1, 2, d2), new DataPoint(2, 2, d2) } });
+            var topGrid = new Grid(new List<DataPoint[]> { new[] { new DataPoint(1, 1, d0), new DataPoint(2, 1, d0) }, new[] { new DataPoint(1, 2, d0), new DataPoint(2, 2, d0) } });
+
+            var volume = new SimpleCalculationStrategy().GetVolume(baseGrid, topGrid, d1, d1, d1);
 
             Assert.AreEqual(1, volume);
         }

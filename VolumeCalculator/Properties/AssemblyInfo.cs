@@ -53,3 +53,5 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("Tests")]
+
+// Icon used from https://www.freepik.com/ under Creative Commons BY 3.0

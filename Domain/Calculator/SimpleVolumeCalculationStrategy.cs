@@ -27,7 +27,7 @@ namespace Domain.Calculator
 
                 if (baseDepth > fluidContact) baseDepth = fluidContact;
 
-                var deltaDepth = topDepth - baseDepth;
+                var deltaDepth = baseDepth - topDepth;
 
                 if (deltaDepth < 0) return 0m; // top is either below base or below fluid contact
 

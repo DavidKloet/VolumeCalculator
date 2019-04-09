@@ -52,9 +52,10 @@ namespace Domain.Calculator
 
                 logger.Info("Success!");
                 logger.Info("");
-                logger.Info($"Volume in cubic meter: {unitConverter.ToCubicMeter(volume):N2}");
-                logger.Info($"Volume in cubic feet: {unitConverter.ToCubicFeet(volume):N2}");
-                logger.Info($"Volume in barrels of oil: {unitConverter.ToBarrels(volume):N2}");
+                logger.Info($"- {unitConverter.ToBarrels(volume):N0} barrels of oil");
+                logger.Info($"- {unitConverter.ToCubicFeet(volume):N0} cubic feet");
+                logger.Info($"- {unitConverter.ToCubicMeter(volume):N0} cubic meter");
+                logger.Info("Volume between top horizon and base horizon/fluid contact is approximately:");
             }
             catch (ReaderException e)
             {
