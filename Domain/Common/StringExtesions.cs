@@ -5,6 +5,9 @@ namespace Domain.Common
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Returns true if the string contains a valid path pointing to an existing file
+        /// </summary>
         public static bool IsValidPath(this string path)
         {
             if (string.IsNullOrWhiteSpace(path)) return false;

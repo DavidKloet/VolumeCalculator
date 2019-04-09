@@ -10,10 +10,8 @@ namespace VolumeCalculator
     {
         private void App_Startup(object sender, StartupEventArgs e)
         {
-            var cultureInfo = new CultureInfo("en-US")
-            {
-                NumberFormat = { NumberGroupSeparator = "" }
-            };
+            // Force US culture for clarity (only period is allowed as decimal separator)
+            var cultureInfo = new CultureInfo("en-US");
 
             CultureInfo.CurrentCulture = cultureInfo;
 

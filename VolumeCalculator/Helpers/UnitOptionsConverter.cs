@@ -1,9 +1,15 @@
-﻿using System;
+﻿using Domain.UnitConverter;
+using System;
 using System.Globalization;
 using System.Windows.Data;
+using VolumeCalculator.ViewModel;
 
 namespace VolumeCalculator.Helpers
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Converter for mapping radiobutton options for <see cref="Unit"/> to the corresponding property on <see cref="MainWindowViewModel"/>
+    /// </summary>
     public class UnitOptionsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

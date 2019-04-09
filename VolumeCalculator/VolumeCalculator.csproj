@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\DecimalValidator.cs" />
+    <Compile Include="Helpers\TextBlockLogger.cs" />
     <Compile Include="Helpers\UnitOptionsConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

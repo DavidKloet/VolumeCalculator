@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace Services.Data
 {
-    public sealed class CsvFileReader : IReader
+    /// <inheritdoc />
+    /// <summary>
+    /// Returns a reader that can read delimited data
+    /// The delimiter mist be a semicolon
+    /// </summary>
+    internal sealed class CsvFileReader : IReader
     {
         private readonly string _path;
 

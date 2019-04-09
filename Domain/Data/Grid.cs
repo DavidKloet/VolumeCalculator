@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Domain.Data
 {
+    /// <summary>
+    /// A grid is made up of data points, that yield segments
+    /// </summary>
     public sealed class Grid : IEnumerable<GridSegment>
     {
         private readonly List<DataPoint[]> _data;
@@ -15,13 +18,13 @@ namespace Domain.Data
 
             _data = data.ToList();
 
-            Rows = _data.Count;
-            Columns = _data[0].Length;
+            Height = _data.Count;
+            Width = _data[0].Length;
         }
 
-        public int Rows { get; }
+        public int Height { get; }
 
-        public int Columns { get; }
+        public int Width { get; }
 
         public IEnumerator<GridSegment> GetEnumerator()
         {

@@ -1,34 +1,25 @@
-﻿using System.ComponentModel;
+﻿using Domain.UnitConverter;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Domain.UnitConverter;
-using VolumeCalculator.Annotations;
-using VolumeCalculator.Helpers;
+using VolumeCalculator.Properties;
 
 namespace VolumeCalculator.ViewModel
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// View model for the main window
+    /// Monitors changes in the UI elements
+    /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private string _topHorizonFileName;
         private string _baseHorizonFileName;
-        private decimal _gridWidth;
-        private decimal _gridHeight;
-        private decimal _fluidContact;
-        private Unit _unit = Unit.Meter;
+        private string _topHorizonFileName;
+        private decimal _gridWidth = 3000m;
+        private decimal _gridHeight = 5000m;
+        private decimal _fluidContact = 9842.52m;
+        private Unit _unit = Unit.Feet;
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public string TopHorizonFileName
-        {
-            get => _topHorizonFileName;
-            set
-            {
-                if (_topHorizonFileName != value)
-                {
-                    _topHorizonFileName = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         public string BaseHorizonFileName
         {
@@ -38,6 +29,19 @@ namespace VolumeCalculator.ViewModel
                 if (_baseHorizonFileName != value)
                 {
                     _baseHorizonFileName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string TopHorizonFileName
+        {
+            get => _topHorizonFileName;
+            set
+            {
+                if (_topHorizonFileName != value)
+                {
+                    _topHorizonFileName = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -96,7 +100,7 @@ namespace VolumeCalculator.ViewModel
         }
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

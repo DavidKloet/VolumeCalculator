@@ -2,7 +2,10 @@
 
 namespace Domain.Data
 {
-    public struct NonNegativeDecimal
+    /// <summary>
+    /// Wrapper to enforce non-negativity of the decimal
+    /// </summary>
+    public struct NonNegativeDecimal : IEquatable<NonNegativeDecimal>
     {
         public decimal Value { get; }
 
@@ -26,7 +29,6 @@ namespace Domain.Data
             return true;
         }
 
-
         public static implicit operator decimal(NonNegativeDecimal d)
         {
             return d.Value;
@@ -35,6 +37,32 @@ namespace Domain.Data
         public static explicit operator NonNegativeDecimal(decimal d)
         {
             return new NonNegativeDecimal(d);
+        }
+
+        public bool Equals(NonNegativeDecimal other)
+        {
+            return Value == other.Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is NonNegativeDecimal other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+
+        public static bool operator ==(NonNegativeDecimal left, NonNegativeDecimal right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(NonNegativeDecimal left, NonNegativeDecimal right)
+        {
+            return !left.Equals(right);
         }
     }
 }

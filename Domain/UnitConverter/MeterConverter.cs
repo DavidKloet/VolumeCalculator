@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.UnitConverter
+﻿namespace Domain.UnitConverter
 {
-    class MeterConverter
+    /// <inheritdoc />
+    /// <summary>
+    /// Converts a volume in cubic meter to other units
+    /// </summary>
+    internal sealed class MeterConverter : IUnitConverter
     {
+        public decimal ToCubicFeet(decimal volume)
+        {
+            return UnitConversions.CubicMeterToCubicFeet(volume);
+        }
+
+        public decimal ToCubicMeter(decimal volume)
+        {
+            return volume;
+        }
+
+        public decimal ToBarrels(decimal volume)
+        {
+            return UnitConversions.CubicMeterToBarrels(volume);
+        }
     }
 }

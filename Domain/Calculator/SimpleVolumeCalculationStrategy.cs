@@ -5,15 +5,20 @@ using System.Linq;
 
 namespace Domain.Calculator
 {
-    public sealed class SimpleCalculationStrategy : ICalculationStrategy
+    /// <inheritdoc />
+    /// <summary>
+    /// Simple volume calculation strategy
+    /// Assumes that the error due to averaging depth values per segment will level out over all segments measured
+    /// </summary>
+    internal sealed class SimpleCalculationStrategy : ICalculationStrategy
     {
         public decimal GetVolume(Grid baseHorizon, Grid topHorizon, NonNegativeDecimal gridWidth, NonNegativeDecimal gridHeight, NonNegativeDecimal fluidContact)
         {
             if (baseHorizon == null) throw new ArgumentNullException(nameof(baseHorizon));
             if (topHorizon == null) throw new ArgumentNullException(nameof(topHorizon));
-            if (baseHorizon.Rows != topHorizon.Rows || baseHorizon.Columns != topHorizon.Columns) throw new ArgumentException("Grids must have equal dimensions");
+            if (baseHorizon.Height != topHorizon.Height || baseHorizon.Width != topHorizon.Width) throw new ArgumentException("Grids must have equal dimensions");
 
-            var segmentArea = (gridWidth / (baseHorizon.Columns - 1)) * (gridHeight / (baseHorizon.Rows - 1));
+            var segmentArea = (gridWidth / (baseHorizon.Width - 1)) * (gridHeight / (baseHorizon.Height - 1));
 
             return baseHorizon.Combine(topHorizon).Sum(pair =>
             {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VolumeCalculator;
+using VolumeCalculator.Helpers;
 
 namespace Tests
 {

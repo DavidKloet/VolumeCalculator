@@ -1,5 +1,7 @@
 ﻿using Domain.Calculator;
 using Domain.Common;
+using Domain.Data;
+using Domain.UnitConverter;
 using Microsoft.Win32;
 using Services.Data;
 using System;
@@ -11,7 +13,7 @@ using VolumeCalculator.ViewModel;
 
 namespace VolumeCalculator.View
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly FileReaderFactory _readerFactory;
         private readonly MainWindowViewModel _model = new MainWindowViewModel();
@@ -76,7 +78,7 @@ namespace VolumeCalculator.View
             e.Handled = string.IsNullOrEmpty(e.Text) || !DecimalValidator.IsValid(e.Text);
         }
 
-        private void NumericOnly_OnPaste(object sender, DataObjectPastingEventArgs e)
+        private static void NumericOnly_OnPaste(object sender, DataObjectPastingEventArgs e)
         {
             var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
 
@@ -98,13 +100,18 @@ namespace VolumeCalculator.View
 
         private async void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            var topGridReader = _readerFactory.GetFileReader(_model.BaseHorizonFileName);
-            var baseGridReader = _readerFactory.GetFileReader(_model.TopHorizonFileName);
+            var baseGridReader = _readerFactory.GetFileReader(_model.BaseHorizonFileName);
+            var topGridReader = _readerFactory.GetFileReader(_model.TopHorizonFileName);
 
             var calculator = VolumeCalculatorFactory.GetCalculator();
-            
+            var unitConverter = UnitConverterFactory.GetConverter(_model.Unit);
+            var logger = new TextBlockLogger(Results);
 
+            Results.Inlines.Clear();
 
+            await calculator.CalculateAsync(baseGridReader, topGridReader,
+                (NonNegativeDecimal)_model.GridWidth, (NonNegativeDecimal)_model.GridHeight,
+                (NonNegativeDecimal)_model.FluidContact, unitConverter, logger);
         }
     }
 }
